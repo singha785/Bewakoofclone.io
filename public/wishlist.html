@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./style/wishlist.css">
+    
+</head>
+
+<body>
+    <div id="navbar"></div>
+    <h2 id="wishlist-heading">WISH LIST</h2>
+
+    <div id="wishlist-container-return">
+        <div id="wishlist-container"></div>
+
+    </div>
+
+
+
+<script>
+var cart  = JSON.parse(localStorage.getItem("bewakoof_cart"))||[];
+
+    var wishlist_data = JSON.parse(localStorage.getItem("bewakoof_wishlist"));
+    console.log(wishlist_data);
+
+    display_wishlist_product(wishlist_data);
+
+    function display_wishlist_product(wishlist_data) {
+
+        document.getElementById("wishlist-container").innerHTML = "";
+
+        wishlist_data.map(function (elem, index) {
+            var wishlistContainer = document.getElementById("wishlist-container");
+            var wishlistProduct = document.createElement("div");
+            wishlistProduct.id = "wishlist-product";
+            
+var subTotalPrice = Math.floor(Number(elem.price) - (Number(elem.discount)/100)*elem.price);
+
+            var img = document.createElement("img");
+            var p1 = document.createElement("p");
+            var p2 = document.createElement("p");
+            var span1 = document.createElement("span");
+            var span2 = document.createElement("span");
+            var p3 = document.createElement("p");
+            var btn = document.createElement("button");
+            var span3 = document.createElement("span");
+
+            img.src = elem.image1;
+            p1.textContent = elem.name;
+            p1.id = "name";
+            p2.innerHTML = `${subTotalPrice}<span>${elem.price}</span><span>${elem.discount}% OFF</span>`;
+            p2.id = "wishlist-price";
+            p3.textContent = `₹${elem.tribe} For Tribe Members`;
+            p3.id = "wishlist-tribe";
+            btn.innerHTML = 'MOVE TO BAG';
+            btn.addEventListener("click", ()=>{
+                cart.push(elem);
+                localStorage.setItem("bewakoof_cart", JSON.stringify(cart));
+                moveToBag(index);
+            })
+            span3.innerHTML = "&times;";
+            span3.className = "wishlist-prod-close";
+
+            wishlistProduct.append(img, p1, p2, p3, btn, span3);
+
+            wishlistContainer.append(wishlistProduct);
+
+            span3.addEventListener("click", function () {
+                console.log("here", index);
+
+                wishlist_data.splice(index, 1);
+                console.log(wishlist_data);
+                localStorage.setItem("bewakoof_wishlist", JSON.stringify(wishlist_data));
+
+                display_wishlist_product(wishlist_data);
+
+            })
+
+        })
+
+    };
+
+    function moveToBag(index){
+        wishlist_data.splice(index, 1);
+        localStorage.setItem("bewakoof_wishlist", JSON.stringify(wishlist_data));
+        display_wishlist_product(wishlist_data);
+    }
+
+
+
+
+
+
+</script></body></html>

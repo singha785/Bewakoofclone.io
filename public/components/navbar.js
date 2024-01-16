@@ -19,7 +19,7 @@ function navbar()
 <div id="nav_bar_search">
     <div id="logo_menu">
       
-        <li><a href="./index.html"><img src="https://images.bewakoof.com/web/bewakoof-primary-logo-white-bg-2x-1635745564.png" alt="logo"></a></li>
+        <li><a href="./index.html"><img src="https://images.bewakoof.com/web/ic-desktop-bwkf-trademark-logo.svg" alt="logo"></a></li>
         <li><a href="#">MEN</a>
          <div id="logo_sub_menu1">
              <div id="sub_menu_item"><ul>
